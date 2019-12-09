@@ -1,0 +1,50 @@
+/* Required height of parents of the Half Page Carousel for proper displaying carousel itself */
+html,
+body,
+main,
+.view {
+    height: 100%;
+}
+
+/* Half Page Carousel itself*/
+.carousel {
+    height: 100%;
+}
+.carousel .carousel-inner {
+    height: 100%;
+}
+.carousel .carousel-inner .carousel-item,
+.carousel .carousel-inner .active {
+    height: 100%;
+}
+
+/* Adjustment for mobile devices*/
+@media (max-width: 776px) {
+    .carousel {
+        height: 100%;
+  }
+}
+
+/* footer styles */
+.nav-footer {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.footer-link {
+    color: #FFFFFF;
+}
+
+.footer-link:hover {
+    text-decoration: none;
+    color: #04D6B3;
+}
+
+.soc-btn {
+    font-size: 2rem;
+    margin-right: 1rem;
+}
+
+.soc-btn:hover {
+    color: #04D6B3;
+}
