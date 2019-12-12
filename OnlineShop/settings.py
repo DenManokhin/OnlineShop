@@ -33,6 +33,10 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # my apps
     'home',
+    'account',
+
+    # my installed apps
+    'widget_tweaks',
     
     # Django apps
     'django.contrib.admin',

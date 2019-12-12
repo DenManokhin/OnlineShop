@@ -1,12 +1,20 @@
-/* Required height of parents of the Half Page Carousel for proper displaying carousel itself */
+/* Prevent navbar overlapping of body content on all pages except home */
+main {
+    padding-top: 6rem;
+}
+
+main.home {
+    padding-top: 0;
+}
+
+/* Required height of parents of the Carousel for proper displaying carousel itself */
 html,
 body,
-main,
 .view {
     height: 100%;
 }
 
-/* Half Page Carousel itself*/
+/* Carousel itself*/
 .carousel {
     height: 100%;
 }
@@ -25,7 +33,7 @@ main,
   }
 }
 
-/* footer styles */
+/* Footer styles */
 .nav-footer {
     list-style-type: none;
     padding-left: 0;
