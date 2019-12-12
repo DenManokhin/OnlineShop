@@ -1,26 +1,49 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate, logout
+
+from account.forms import SignUpForm, SignInForm
 
 
 def signup_view(request):
     context = {}
     if request.POST:
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
+            user = form.save()
             login(request, user)
             return redirect('home')
         else:
             context['form'] = form
     else:
-        context['form'] = UserCreationForm()
+        context['form'] = SignUpForm()
     return render(request, 'signup.html', context)
 
 
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+
+def signin_view(request):
+    context = {}
+    user = request.user;
+
+    if user.is_authenticated:
+        return redirect('home')
+
+    if request.POST:
+        form = SignInForm(request.POST)
+        if form.is_valid():
+            email = request.POST['email']
+            password = request.POST['password']
+            user = authenticate(email=email, password=password)
+
+            if user:
+                login(request, user)
+                return redirect('home')
+
+    else:
+        form = SignInForm()
+
+    context['form'] = form
+    return render(request, 'signin.html', context)
