@@ -56,3 +56,16 @@ body,
 .soc-btn:hover {
     color: #04D6B3;
 }
+
+/* Social authentication buttons */
+.btn-fb, .btn-fb:hover {
+    background-color: #3b5998;
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.btn-google, .btn-google:hover {
+    background-color: #DB4437;
+    color: #ffffff;
+    font-size: 1rem;
+}
