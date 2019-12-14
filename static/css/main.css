@@ -1,12 +1,20 @@
-/* Required height of parents of the Half Page Carousel for proper displaying carousel itself */
+/* Prevent navbar overlapping of body content on all pages except home */
+main {
+    padding-top: 6rem;
+}
+
+main.home {
+    padding-top: 0;
+}
+
+/* Required height of parents of the Carousel for proper displaying carousel itself */
 html,
 body,
-main,
 .view {
     height: 100%;
 }
 
-/* Half Page Carousel itself*/
+/* Carousel itself*/
 .carousel {
     height: 100%;
 }
@@ -25,7 +33,7 @@ main,
   }
 }
 
-/* footer styles */
+/* Footer styles */
 .nav-footer {
     list-style-type: none;
     padding-left: 0;
@@ -47,4 +55,17 @@ main,
 
 .soc-btn:hover {
     color: #04D6B3;
+}
+
+/* Social authentication buttons */
+.btn-fb, .btn-fb:hover {
+    background-color: #3b5998;
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.btn-google, .btn-google:hover {
+    background-color: #DB4437;
+    color: #ffffff;
+    font-size: 1rem;
 }
