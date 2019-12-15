@@ -15,11 +15,12 @@ class Item(models.Model):
     )
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='items', null=True, blank=True)
     category = models.CharField(max_length=3, choices=CATEGORY_CHOICES)
     description = models.TextField()
     price = models.DecimalField(max_digits=7, decimal_places=2)
-    discount = models.PositiveSmallIntegerField()
+    discount = models.PositiveSmallIntegerField(default=0)
     rating = models.PositiveSmallIntegerField()
 
     def __str__(self):

@@ -39,7 +39,7 @@ def signin_view(request):
             user = authenticate(email=email, password=password)
 
             if user:
-                login(request, user)
+                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                 return redirect('home')
 
     else:
