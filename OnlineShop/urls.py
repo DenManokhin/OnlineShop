@@ -20,7 +20,7 @@ from django.conf import settings
 
 from home.views import home_screen_view
 from account.views import signup_view, logout_view, signin_view
-from shop.views import items_view
+from shop.views import items_view, ShopView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,7 +29,8 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('signin/', signin_view, name='signin'),
     path('social-auth/', include('social_django.urls', namespace='social')),
-    path('shop/', items_view, name='shop'),
+    path('shop/', ShopView.as_view(), name='shop'),
+    # path('shop/', items_view, name='shop'),
 ]
 
 if settings.DEBUG:
