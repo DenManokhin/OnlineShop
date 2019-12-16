@@ -41,7 +41,6 @@ def signin_view(request):
             if user:
                 login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                 return redirect('home')
-
     else:
         form = SignInForm()
 

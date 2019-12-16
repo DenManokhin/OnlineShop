@@ -1,3 +1,5 @@
+{% load cart_template_tags %}
+
 <!-- Navbar -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
     <div class="container">
@@ -30,33 +32,36 @@
 
             <!-- Right -->
             <ul class="navbar-nav nav-flex-icons">
-                <li class="nav-item">
-                    <a class="nav-link py-3">
-                        <span class="badge red z-depth-1 mr-1"> 1 </span>
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="clearfix d-none d-sm-inline-block"> Cart </span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    {% if request.user.is_authenticated %}
-                        <p class="text-primary mt-3">Welcome, {{ request.user.username }}</p>
-                    {% else %}
-                        <a href="{% url 'signin' %}" class="nav-link btn btn-outline-primary rounded waves-effect">
-                            Sign In
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{% url 'cart' %}" class="nav-link py-3">
+                            <span class="badge red z-depth-1 mr-1"> {{ request.user|cart_item_count }} </span>
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="clearfix d-none d-sm-inline-block"> Cart </span>
                         </a>
-                    {% endif %}
-                </li>
-                <li class="nav-item">
-                    {% if request.user.is_authenticated %}
+                    </li>
+                    <li class="nav-item">
+                        <p class="text-primary mt-3">Welcome, {{ request.user.username }}</p>
+                    </li>
+                    <li class="nav_item">
                         <a href="{% url 'logout' %}" class="nav-link btn btn-outline-primary rounded waves-effect">
                             Logout
                         </a>
-                    {% else %}
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a href="{% url 'signin' %}" class="nav-link btn btn-outline-primary rounded waves-effect">
+                            Sign In
+                        </a>
+                    </li>
+                    <li class="nav-item">
+
                         <a href="{% url 'signup' %}" class="nav-link btn btn-primary rounded text-white waves-effect">
                             Sign Up
                         </a>
-                    {% endif %}
-                </li>
+                    </li>
+                {% endif %}
+
             </ul>
 
         </div>
