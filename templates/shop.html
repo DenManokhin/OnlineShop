@@ -86,7 +86,7 @@
                                     {% else %}
                                         <img src="{% static 'img/default.png' %}" class="card-img-top" alt="{{ item.title }}">
                                     {% endif %}
-                                    <a>
+                                    <a href="{{ item.get_absolute_url }}">
                                         <div class="mask rgba-white-slight"></div>
                                     </a>
                                 </div>
@@ -100,7 +100,7 @@
                                     </a>
                                     <h5>
                                         <strong>
-                                            <a href="" class="dark-grey-text">
+                                            <a href="{{ item.get_absolute_url }}" class="dark-grey-text">
                                                 {{ item.title }}
                                             </a>
                                         </strong>

@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 
-from shop.models import Item
+from shop.models import Item, Review
 
 
 def items_view(request):
@@ -36,4 +37,15 @@ class ShopView(ListView):
             ('rating', 'Rating')
         ]
         context['current_sort_order'] = self.request.GET.get('orderby', 'title')
+        return context
+
+
+class ProductView(DetailView):
+    model = Item
+    template_name = 'product.html'
+    context_object_name = 'item'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['reviews'] = Review.objects.filter(item=self.object)
         return context
