@@ -1,66 +1,81 @@
 {% extends 'base.html' %}
 
+{% load cart_template_tags %}
+
 {% block title %}Cart ― MyShop{% endblock %}
 
 {% block content %}
     <main>
-        <div class="container">
-            <div class="card shopping-cart">
-                <div class="card-header bg-dark text-light">
-                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    Shopping cart
-                    <a href="" class="btn btn-outline-info btn-sm pull-right">Continiue shopping</a>
-                    <div class="clearfix"></div>
+
+        <div class="container px-3 my-5 clearfix">
+            <!-- Shopping cart table -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Shopping Cart</h2>
                 </div>
                 <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered m-0">
+                            <thead>
+                            <tr>
+                                <!-- Set columns width -->
+                                <th class="text-center py-3 px-4" style="min-width: 400px;">Product Name &amp; Details</th>
+                                <th class="text-right py-3 px-4" style="width: 100px;">Price</th>
+                                <th class="text-center py-3 px-4" style="width: 120px;">Quantity</th>
+                                <th class="text-right py-3 px-4" style="width: 100px;">Total</th>
+                                <th class="text-center align-middle py-3 px-0" style="width: 40px;"><a href="#" class="shop-tooltip float-none text-light" title="" data-original-title="Clear cart"><i class="ino ion-md-trash"></i></a></th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-                    <!-- Products -->
-                    {% for order_item in cart_items %}
-                        <div class="row">
-                            <div class="col-12 col-sm-12 col-md-2 text-center">
-                                <img class="img-responsive" src="{{ order_item.item.image.url }}" alt="prewiew" width="120" height="80">
-                            </div>
-                            <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
-                                <h4 class="product-name"><strong>{{ order_item.item.title }}</strong></h4>
-                            </div>
-                            <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
-                                <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
-                                    <h6><strong>{{ order_item.item.discount_price }}<span class="text-muted">x</span></strong></h6>
-                                </div>
-                                <div class="col-4 col-sm-4 col-md-4">
-                                    <div class="quantity">
-                                        <input type="button" value="+" class="plus">
-                                        <input type="number" step="1" max="99" min="1" value="{{ order_item.amount }}" title="Qty" class="qty" size="4">
-                                        <input type="button" value="-" class="minus">
-                                    </div>
-                                </div>
-                                <div class="col-2 col-sm-2 col-md-2 text-right">
-                                    <button type="button" class="btn btn-outline-danger btn-xs">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </button>
+                            {% for cart_item in cart_items %}
+                                <tr>
+                                    <td class="p-4">
+                                        <div class="media align-items-center">
+                                            <img src="{{ cart_item.order_item.item.image.url }}" class="d-block ui-w-40 ui-bordered mr-4" alt="{{ cart_item.order_item.item.title }}">
+                                            <div class="media-body">
+                                                <a href="{{ cart_item.order_item.item.get_absolute_url }}" class="d-block text-dark">{{ cart_item.order_item.item.title }}</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-right font-weight-semibold align-middle p-4">
+                                        {{ cart_item.order_item.item.discount_price }}
+                                    </td>
+                                    <td class="align-middle p-4">
+                                        <input type="text" class="form-control text-center" value="{{ cart_item.order_item.amount }}">
+                                    </td>
+                                    <td class="text-right font-weight-semibold align-middle p-4">
+                                        {{ cart_item.subtotal }}
+                                    </td>
+                                    <td class="text-center align-middle px-0">
+                                        <a href="{% url 'remove-from-cart' slug=cart_item.order_item.item.slug %}"
+                                           class="shop-tooltip close float-none text-danger"
+                                           title="" data-original-title="Remove">×</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- / Shopping cart table -->
+
+                    <div class="float-right">
+                        <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
+                            <div class="d-flex">
+                                <div class="text-right mt-4">
+                                    <label class="text-muted font-weight-normal m-0">Total price</label>
+                                    <div class="text-large"><strong>{{ total }}</strong></div>
                                 </div>
                             </div>
                         </div>
-                        <hr>
-                    {% endfor %}
-                    <!-- Products -->
-
-                    <div class="float-right">
-                        <a href="" class="btn btn-outline-secondary float-right">
-                            Update shopping cart
-                        </a>
+                        <a href="{% url 'shop' %}" type="button" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Back to shopping</a>
+                        <button type="button" class="btn btn-lg btn-primary mt-2">Checkout</button>
                     </div>
 
                 </div>
-
-                <div class="float-right" style="margin: 10px">
-                    <a href="" class="btn btn-success float-right">Checkout</a>
-                    <div class="float-right" style="margin: 5px">
-                        Total price: <b>50.00€</b>
-                    </div>
-                </div>
-
             </div>
         </div>
+
     </main>
 {% endblock %}

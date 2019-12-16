@@ -3,6 +3,8 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import F, Sum, DecimalField, ExpressionWrapper
+from django.db.models.functions import Cast
 
 from shop.models import Item, OrderItem, Order, Review
 
@@ -71,23 +73,38 @@ def add_to_cart_view(request, slug):
     return redirect('product', slug=slug)
 
 
-class CartView(ListView):
-    template_name = 'cart.html'
+@login_required
+def remove_from_cart(request, slug):
+    OrderItem.objects.filter(
+        item__slug=slug,
+        order__is_paid=False,
+        order__user=request.user
+    ).delete()
+    return redirect('cart')
 
-    def get_queryset(self):
-        order = self.request.user.order_set.filter(is_paid=False).first()
-        if order:
-            cart_items = order.orderitem_set.all()
-        else:
-            cart_items = OrderItem.objects.none()
 
-
+@login_required
 def cart_view(request):
-    context = {}
+    context = {
+        'cart_items': []
+    }
+
     order = request.user.order_set.filter(is_paid=False).first()
     if order:
         cart_items = order.orderitem_set.all()
     else:
         cart_items = OrderItem.objects.none()
-    context['cart_items'] = cart_items
+
+    for order_item in cart_items:
+        cart_items_with_subtotal = {
+            'order_item': order_item,
+            'subtotal': order_item.amount * order_item.item.discount_price
+        }
+        context['cart_items'].append(cart_items_with_subtotal)
+
+    total = 0
+    for cart_item in context['cart_items']:
+        total += cart_item['subtotal']
+    context['total'] = total
+
     return render(request, 'cart.html', context)
