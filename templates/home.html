@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block title %}Home ― MyShop{% endblock %}
 
 {% block content %}
@@ -21,7 +23,7 @@
 
                 <!--First slide-->
                 <div class="carousel-item active">
-                    <div class="view" style="background-image: url('https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/8-col/img%282%29.jpg');
+                    <div class="view" style="background-image: url({% static 'img/slide1.jpg' %});
                 background-repeat: no-repeat; background-size: cover; background-position: center;">
 
                         <!-- Mask & flexbox options-->
@@ -40,7 +42,7 @@
 
                 <!--Second slide-->
                 <div class="carousel-item">
-                    <div class="view" style="background-image: url('https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/8-col/img%283%29.jpg');
+                    <div class="view" style="background-image: url({% static 'img/slide2.jpg' %});
                 background-repeat: no-repeat; background-size: cover; background-position: center;">
 
                         <!-- Mask & flexbox options-->
@@ -59,7 +61,7 @@
 
                 <!--Third slide-->
                 <div class="carousel-item">
-                    <div class="view" style="background-image: url('https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/8-col/img%285%29.jpg');
+                    <div class="view" style="background-image: url({% static 'img/slide3.jpg' %});
                 background-repeat: no-repeat; background-size: cover; background-position: center;">
 
                         <!-- Mask & flexbox options-->

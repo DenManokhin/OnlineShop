@@ -20,24 +20,40 @@
 
             <!-- Left -->
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link waves-effect" href="{% url 'home' %}">Home
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-effect" href="{% url 'shop' %}">Shop</a>
-                </li>
+                {% if request.path == '/' %}
+                    <li class="nav-item active">
+                        <a class="nav-link waves-effect" href="{% url 'home' %}">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" href="{% url 'home' %}">Home</a>
+                    </li>
+                {% endif %}
+
+                {% if '/shop/' in request.path %}
+                    <li class="nav-item active">
+                        <a class="nav-link waves-effect" href="{% url 'shop' %}">Shop
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" href="{% url 'shop' %}">Shop</a>
+                    </li>
+                {% endif %}
             </ul>
 
             <!-- Right -->
             <ul class="navbar-nav nav-flex-icons">
                 {% if request.user.is_authenticated %}
-                    <li class="nav-item">
+                    <li class="nav-item {% if 'cart' in request.path %}active{% endif %}">
                         <a href="{% url 'cart' %}" class="nav-link py-3">
                             <span class="badge red z-depth-1 mr-1"> {{ request.user|cart_item_count }} </span>
                             <i class="fas fa-shopping-cart"></i>
                             <span class="clearfix d-none d-sm-inline-block"> Cart </span>
+                            {% if 'cart' in request.path %}<span class="sr-only">(current)</span>{% endif %}
                         </a>
                     </li>
                     <li class="nav-item">
