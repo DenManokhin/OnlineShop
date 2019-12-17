@@ -10,3 +10,9 @@ class CheckoutForm(forms.Form):
     card_number = forms.CharField(label='Credit card number', min_length=19, max_length=19)
     card_expiration = forms.DateTimeField(label='Expiration', input_formats=['%m/%y'])
     card_cvv = forms.CharField(label='CVV', min_length=3, max_length=3, widget=forms.PasswordInput)
+
+
+class ReviewForm(forms.Form):
+    message = forms.CharField(max_length=14000, widget=forms.Textarea)
+    rating = forms.IntegerField(label="Rating", min_value=1, max_value=5)
+

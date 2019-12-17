@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% load widget_tweaks %}
 
 {% block title %}{{ item.title }} ― MyShop{% endblock %}
 
@@ -62,15 +63,6 @@
 
                         <p>{{ item.description }}</p>
 
-                        {#                        <form class="d-flex justify-content-left">#}
-                        {#                            <!-- Default input -->#}
-                        {#                            <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">#}
-                        {#                            <button class="btn btn-primary btn-md my-0 p" type="submit" href="{{ item.get_add_to_cart_url }}">#}
-                        {#                                Add to cart#}
-                        {#                                <i class="fas fa-shopping-cart ml-1"></i>#}
-                        {#                            </button>#}
-                        {##}
-                        {#                        </form>#}
                         <a class="btn btn-primary btn-md my-0 p" type="submit" href="{{ item.get_add_to_cart_url }}">
                             Add to cart
                             <i class="fas fa-shopping-cart ml-1"></i>
@@ -95,10 +87,31 @@
                             <div class="panel-heading text-center">
                                 Reviews
                             </div>
-                            <div class="panel-body">
-                                <textarea class="form-control" placeholder="Write a review..." rows="3"></textarea>
-                                <br>
-                                <button type="button" class="btn btn-info">Post</button>
+                            <div class="panel-body container">
+                                {% if request.user.is_authenticated %}
+                                    {% if bought_by_user %}
+                                        <form method="post"> {% csrf_token %}
+                                            {% render_field form.message class="form-control" placeholder="Write a review..." rows="3" %}
+
+                                            {{ form.rating.label_tag }}
+                                            {% render_field form.rating class="form-control" %}
+
+                                            {% for error in form.rating.errors %}
+                                                <p class="form-text text-muted text-danger">{{ error }}</p>
+                                            {% endfor %}
+
+                                            <button type="submit" class="btn btn-info">Post</button>
+                                        </form>
+                                    {% else %}
+                                        <div class="alert alert-primary" role="alert">
+                                            To review this item you should first buy it.
+                                        </div>
+                                    {% endif %}
+                                {% else %}
+                                    <div class="alert alert-primary" role="alert">
+                                        Please <a href="{% url 'signin' %}">log in</a> to write a review
+                                    </div>
+                                {% endif %}
                                 <hr>
                                 <ul class="media-list">
                                     {% for review in reviews %}
@@ -107,13 +120,14 @@
                                                 <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
                                             </a>
                                             <div class="media-body">
-                                            <span class="text-muted">
-                                                <small class="text-muted">{{ review.post_date }}</small>
-                                            </span>
+                                                <span class="text-muted">
+                                                    <small class="text-muted">{{ review.post_date }}</small>
+                                                </span>
                                                 <strong class="text-success">{{ review.user.username }}</strong>
                                                 <p>
                                                     {{ review.message }}
                                                 </p>
+                                                <span>Rating: {{ review.rating }}</span>
                                             </div>
                                         </li>
                                     {% endfor %}

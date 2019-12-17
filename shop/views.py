@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 
 from shop.models import Item, OrderItem, Order, Review
-from shop.forms import CheckoutForm
+from shop.forms import CheckoutForm, ReviewForm
 
 
 class ShopView(ListView):
@@ -47,7 +47,44 @@ class ProductView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['reviews'] = Review.objects.filter(item=self.object)
+        context['form'] = ReviewForm()
         return context
+
+
+def product_view(request, slug):
+    context = {}
+
+    item = Item.objects.filter(slug=slug).first()
+    if request.POST:
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+
+            user = request.user
+            item = Item.objects.filter(slug=slug).first()
+            message = form.cleaned_data.get('message')
+            rating = form.cleaned_data.get('rating')
+
+            Review.objects.create(
+                message=message,
+                rating=rating,
+                user=user,
+                item=item
+            )
+
+            return redirect('product', slug=slug)
+        else:
+            context['form'] = form
+    else:
+        if request.user.is_authenticated:
+            bought_by_user = OrderItem.objects.filter(item=item, order__user=request.user, order__is_paid=True).exists()
+            if bought_by_user:
+                context['bought_by_user'] = True
+                context['form'] = ReviewForm()
+
+    context['item'] = item
+    context['reviews'] = Review.objects.filter(item=item)
+
+    return render(request, 'product.html', context)
 
 
 @login_required
@@ -130,4 +167,3 @@ def checkout_view(request):
 
 def thanks_view(request):
     return render(request, 'thanks.html', {})
-
