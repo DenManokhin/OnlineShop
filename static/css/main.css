@@ -1,3 +1,11 @@
+body {
+    background-color: #eee;
+}
+
+main {
+    min-height: 100vh;
+}
+
 /* Prevent navbar overlapping of body content on all pages except home */
 main {
     padding-top: 6rem;
@@ -30,7 +38,7 @@ body,
 @media (max-width: 776px) {
     .carousel {
         height: 100%;
-  }
+    }
 }
 
 /* Footer styles */
@@ -69,3 +77,40 @@ body,
     color: #ffffff;
     font-size: 1rem;
 }
+
+/* Comments section styles */
+.comment-wrapper .panel-body {
+    max-height:650px;
+    overflow:auto;
+}
+
+.comment-wrapper .media-list .media img {
+    width:64px;
+    height:64px;
+    border:2px solid #e5e7e8;
+}
+
+.comment-wrapper .media-list .media {
+    border-bottom:1px dashed #efefef;
+    margin-bottom:25px;
+}
+
+/* Shopping cart styles */
+
+.ui-w-40 {
+    width: 40px !important;
+    height: auto;
+}
+
+.ui-product-color {
+    display: inline-block;
+    overflow: hidden;
+    margin: .144em;
+    width: .875rem;
+    height: .875rem;
+    border-radius: 10rem;
+    -webkit-box-shadow: 0 0 0 1px rgba(0,0,0,0.15) inset;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.15) inset;
+    vertical-align: middle;
+}
+

@@ -35,12 +35,13 @@ INSTALLED_APPS = [
     # my apps
     'home',
     'account',
+    'shop',
 
     # my installed apps
     'widget_tweaks',
     'social_django',
     'django_extensions',
-    
+
     # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -134,11 +135,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
 
 
 # Default user model
@@ -164,7 +169,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
 )
-LOGIN_URL = '/'
+LOGIN_URL = 'signin'
 LOGIN_REDIRECT_URL = '/'
 
 SOCIAL_AUTH_USER_MODEL = 'account.User'
@@ -181,4 +186,7 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+
+# Google Maps API key for django-address app
+GOOGLE_API_KEY=config('GOOGLE_API_KEY')
 
