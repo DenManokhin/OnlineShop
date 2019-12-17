@@ -7,7 +7,7 @@
 {% block content %}
     <main>
 
-        <div class="container px-3 my-5 clearfix">
+        <div class="container px-3 my-5">
             <!-- Shopping cart table -->
             <div class="card">
                 <div class="card-header">
@@ -70,7 +70,7 @@
                             </div>
                         </div>
                         <a href="{% url 'shop' %}" type="button" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Back to shopping</a>
-                        <button type="button" class="btn btn-lg btn-primary mt-2">Checkout</button>
+                        <a href="{% url 'checkout' %}" type="button" class="btn btn-lg btn-primary mt-2">Checkout</a>
                     </div>
 
                 </div>

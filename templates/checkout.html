@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+
+{% block title %}Checkout ― MyShop{% endblock %}
+
+{% block head_extra %}{{ form.media }}{% endblock %}
+
+{% block content %}
+    <!--Main layout-->
+    <main>
+
+        <div class="container wow fadeIn">
+
+            <!-- Heading -->
+            <h2 class="mb-5 h2 text-center">Checkout form</h2>
+
+            <!--Grid row-->
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-10 mb-4 mx-auto">
+
+                    <!--Card-->
+                    <div class="card">
+
+                        <!--Card content-->
+                        <form class="card-body" method="post"> {% csrf_token %}
+
+                            <!--Grid row-->
+                            <div class="row">
+
+                                <!--Grid column-->
+                                <div class="col-md-6 mb-2">
+
+                                    <!--firstName-->
+                                    <div class="md-form ">
+                                        {% render_field form.first_name class="form-control" placeholder=form.first_name.label %}
+
+                                        {% if form.first_name.help_text %}
+                                            <small class="form-text text-muted">{{ form.first_name.help_text }}</small>
+                                        {% endif %}
+
+                                        {% for error in form.first_name.errors %}
+                                            <p class="form-text text-muted text-danger">{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+
+                                </div>
+                                <!--Grid column-->
+
+                                <!--Grid column-->
+                                <div class="col-md-6 mb-2">
+
+                                    <!--lastName-->
+                                    <div class="md-form">
+                                        {% render_field form.last_name class="form-control" placeholder=form.last_name.label %}
+
+                                        {% if form.last_name.help_text %}
+                                            <small class="form-text text-muted">{{ form.last_name.help_text }}</small>
+                                        {% endif %}
+
+                                        {% for error in form.last_name.errors %}
+                                            <p class="form-text text-muted text-danger">{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+
+                                </div>
+                                <!--Grid column-->
+
+                            </div>
+                            <!--Grid row-->
+
+                            <!--email-->
+                            <div class="md-form mb-5">
+                                {% render_field form.email class="form-control" placeholder=form.email.label %}
+
+                                {% if form.email.help_text %}
+                                    <small class="form-text text-muted">{{ form.email.help_text }}</small>
+                                {% endif %}
+
+                                {% for error in form.email.errors %}
+                                    <p class="form-text text-muted text-danger">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+
+                            <!--address-->
+                            <div class="md-form mb-5">
+                                {% render_field form.address class="form-control" placeholder=form.address.label %}
+
+                                {% if form.address.help_text %}
+                                    <small class="form-text text-muted">{{ form.address.help_text }}</small>
+                                {% endif %}
+
+                                {% for error in form.address.errors %}
+                                    <p class="form-text text-muted text-danger">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    {% render_field form.card_name class="form-control" placeholder=form.card_name.label %}
+
+                                    {% if form.card_name.help_text %}
+                                        <small class="form-text text-muted">{{ form.card_name.help_text }}</small>
+                                    {% endif %}
+
+                                    {% for error in form.card_name.errors %}
+                                        <p class="form-text text-muted text-danger">{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    {% render_field form.card_number class="form-control" placeholder=form.card_number.label %}
+
+                                    {% if form.card_number.help_text %}
+                                        <small class="form-text text-muted">{{ form.card_number.help_text }}</small>
+                                    {% endif %}
+
+                                    {% for error in form.card_number.errors %}
+                                        <p class="form-text text-muted text-danger">{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    {% render_field form.card_expiration class="form-control" placeholder=form.card_expiration.label %}
+
+                                    {% if form.card_expiration.help_text %}
+                                        <small class="form-text text-muted">{{ form.card_expiration.help_text }}</small>
+                                    {% endif %}
+
+                                    {% for error in form.card_expiration.errors %}
+                                        <p class="form-text text-muted text-danger">{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    {% render_field form.card_cvv class="form-control" placeholder=form.card_cvv.label %}
+
+                                    {% if form.card_cvv.help_text %}
+                                        <small class="form-text text-muted">{{ form.card_cvv.help_text }}</small>
+                                    {% endif %}
+
+                                    {% for error in form.card_cvv.errors %}
+                                        <p class="form-text text-muted text-danger">{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <hr class="mb-4">
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+
+                        </form>
+
+                    </div>
+                    <!--/.Card-->
+
+                </div>
+                <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+        </div>
+    </main>
+    <!--Main layout-->
+{% endblock %}

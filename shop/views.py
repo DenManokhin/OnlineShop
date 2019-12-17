@@ -3,10 +3,10 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db.models import F, Sum, DecimalField, ExpressionWrapper
-from django.db.models.functions import Cast
+
 
 from shop.models import Item, OrderItem, Order, Review
+from shop.forms import CheckoutForm
 
 
 class ShopView(ListView):
@@ -108,3 +108,26 @@ def cart_view(request):
     context['total'] = total
 
     return render(request, 'cart.html', context)
+
+
+@login_required
+def checkout_view(request):
+    # if POST request - process data
+    if request.POST:
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            # TODO: payment processing
+            order = request.user.order_set.filter(is_paid=False).first()
+            order.is_paid = True
+            order.save()
+            return redirect('thanks')
+    # else if GET or any other request create a blank form
+    else:
+        form = CheckoutForm()
+
+    return render(request, 'checkout.html', {'form' : form})
+
+
+def thanks_view(request):
+    return render(request, 'thanks.html', {})
+

@@ -20,7 +20,7 @@ from django.conf import settings
 
 from home.views import home_screen_view
 from account.views import signup_view, logout_view, signin_view
-from shop.views import ShopView, ProductView, add_to_cart_view, cart_view, remove_from_cart
+from shop.views import ShopView, ProductView, add_to_cart_view, cart_view, remove_from_cart, checkout_view, thanks_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,6 +34,8 @@ urlpatterns = [
     path('add-to-cart/<slug>/', add_to_cart_view, name='add-to-cart'),
     path('cart/', cart_view, name='cart'),
     path('remove-from-cart/<slug>/', remove_from_cart, name='remove-from-cart'),
+    path('checkout/', checkout_view, name='checkout'),
+    path('thanks/', thanks_view, name='thanks'),
 ]
 
 if settings.DEBUG:

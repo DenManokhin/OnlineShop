@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'social_django',
     'django_extensions',
-    
+
     # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -186,4 +186,7 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+
+# Google Maps API key for django-address app
+GOOGLE_API_KEY=config('GOOGLE_API_KEY')
 
